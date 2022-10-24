@@ -1,5 +1,6 @@
 from github_webhook import Webhook
 from flask import Flask
+import json
 
 app = Flask(__name__)  # Standard Flask app
 webhook = Webhook(app) # Defines '/postreceive' endpoint
@@ -12,7 +13,7 @@ def hello_world():
 
 @webhook.hook()        # Defines a handler for the 'push' event
 def on_push(data):
-    print("Got push with: {0}".format(data))
+    print(f"Got push with: {json.dumps(data, indent=2)}")
 
 
 if __name__ == "__main__":
