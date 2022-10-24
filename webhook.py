@@ -11,7 +11,7 @@ def hello_world():
     return "Hello, World!"
 
 
-@webhook.hook()        # Defines a handler for the 'push' event
+@webhook.hook(event_type="pull_request")        # Defines a handler for the 'push' event
 def on_push(data):
     print(f"Got push with: {json.dumps(data, indent=2)}")
 
