@@ -33,7 +33,10 @@ def do_github_api_call(url):
     with open('./config.json') as fp:
         token = json.load(fp)["token"]
         username = json.load(fp)["username"]
-    return requests.get(url, auth=(username, token)).json()
+    response = requests.get(url, auth=(username, token))
+    print(response)
+    print(response.text)
+    return response.json()
 
 
 if __name__ == "__main__":
