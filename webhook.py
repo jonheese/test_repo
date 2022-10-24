@@ -1,6 +1,7 @@
 from github_webhook import Webhook
 from flask import Flask
 import json
+import requests
 
 app = Flask(__name__)  # Standard Flask app
 webhook = Webhook(app) # Defines '/postreceive' endpoint
@@ -23,9 +24,16 @@ def on_push(data):
     print(f"merged: {merged}")
     if not merged:
         return None
-    for key in pull_request.keys():
-        if "url" in key:
-            print(f"{key}: {pull_request[key]}")
+    files_url = pull_request.get("url") + "/files"
+    print(f"files_url: {files_url}")
+    print(json.dumps(do_github_api_call(files_url), indent=2))
+
+
+def do_github_api_call(url):
+    with open('./config.json') as fp:
+        token = json.load(fp)["token"]
+    headers = {f"Authorization": "token {token}"}
+    return requests.get(url, headers=headers).json()
 
 
 if __name__ == "__main__":
