@@ -23,8 +23,9 @@ def on_push(data):
     print(f"merged: {merged}")
     if not merged:
         return None
-    files_url = pull_request.get('files_url')
-    print(f"files_url: {files_url}")
+    for key in pull_request.keys():
+        if "url" in key:
+            print(f"{key}: {pull_request[key]}")
 
 
 if __name__ == "__main__":
