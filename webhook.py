@@ -32,10 +32,8 @@ def on_push(data):
 def do_github_api_call(url):
     with open('./config.json') as fp:
         token = json.load(fp)["token"]
-    print(f"token is {token}")
-
-    headers = {f"Authorization": "token {token}"}
-    return requests.get(url, headers=headers).json()
+        username = json.load(fp)["username"]
+    return requests.get(url, auth=(username, token)).json()
 
 
 if __name__ == "__main__":
