@@ -33,6 +33,7 @@ def do_github_api_call(url):
     with open('./config.json') as fp:
         token = json.load(fp)["token"]
     headers = {f"Authorization": "token {token}"}
+
     return requests.get(url, headers=headers).json()
 
 
